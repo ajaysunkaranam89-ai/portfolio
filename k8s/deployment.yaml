@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: portfolio
-          image: localhost:30600/portfolio:6
+          image: localhost:30600/portfolio:7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
