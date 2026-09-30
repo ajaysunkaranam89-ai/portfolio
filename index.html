@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ajay Sunkaranam — Network Security & Cloud Architect with 15+ years across enterprise networking, AWS, virtualization, and Kubernetes-driven DevOps automation.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%99%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<title>Ajay Sunkaranam — Network Security &amp; Cloud Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #06080c;
+    --bg-alt: #0b0f16;
+    --card: rgba(255,255,255,0.035);
+    --card-border: rgba(255,255,255,0.09);
+    --card-border-hover: rgba(100,220,210,0.45);
+    --text: #eef3f8;
+    --text-dim: #8fa1b5;
+    --accent: #4fe3c1;
+    --accent-2: #6c8cff;
+    --accent-3: #b76cff;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+  a { color: var(--accent); text-decoration: none; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+
+  /* scroll progress bar */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    z-index: 100; transition: width 0.1s ease-out;
+  }
+
+  /* animated background */
+  .bg-fx {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  }
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.35;
+    animation: float 22s ease-in-out infinite;
+  }
+  .blob1 { width: 480px; height: 480px; background: var(--accent); top: -160px; left: -120px; }
+  .blob2 { width: 420px; height: 420px; background: var(--accent-2); top: 300px; right: -140px; animation-delay: -6s; }
+  .blob3 { width: 380px; height: 380px; background: var(--accent-3); bottom: -160px; left: 30%; animation-delay: -12s; }
+  @keyframes float {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(40px,-30px) scale(1.08); }
+    66% { transform: translate(-30px,25px) scale(0.94); }
+  }
+  .grid-overlay {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  header.hero {
+    padding: 110px 0 70px;
+    text-align: center;
+    position: relative;
+  }
+  .avatar-ring {
+    width: 96px; height: 96px; margin: 0 auto 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2), var(--accent-3));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem;
+    color: #06080c;
+    box-shadow: 0 0 60px rgba(79,227,193,0.35);
+  }
+  header.hero h1 {
+    font-size: clamp(2.3rem, 6vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, #fff, #cfe8ff 40%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  header.hero .role {
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  header.hero .tagline {
+    margin: 24px auto 0;
+    max-width: 680px;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+  }
+  header.hero .contact-row {
+    margin-top: 34px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+  }
+  .pill:hover { border-color: var(--card-border-hover); color: var(--text); transform: translateY(-2px); }
+
+  .stats-row {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    max-width: 780px;
+    margin-left: auto; margin-right: auto;
+    background: var(--card-border);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .stat { background: rgba(8,11,16,0.7); padding: 20px 8px; text-align: center; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  @media (max-width: 560px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  #back-to-top {
+    position: fixed; right: 24px; bottom: 24px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--card); border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 1.1rem; cursor: pointer;
+    opacity: 0; pointer-events: none; transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 20;
+  }
+  #back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  #back-to-top:hover { border-color: var(--card-border-hover); transform: translateY(-3px); }
+
+  nav.subnav {
+    position: sticky; top: 0;
+    background: rgba(6,8,12,0.75);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--card-border);
+    z-index: 10;
+  }
+  nav.subnav .wrap {
+    display: flex; gap: 8px; padding: 12px 24px;
+    overflow-x: auto; justify-content: center;
+  }
+  nav.subnav a {
+    color: var(--text-dim);
+    font-size: 0.86rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+  nav.subnav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+  section { padding: 80px 0; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent-2);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+  section h2 {
+    font-size: 1.9rem;
+    margin-bottom: 36px;
+    font-weight: 600;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 22px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  .skill-card:hover {
+    border-color: var(--card-border-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  }
+  .skill-card .icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; margin-bottom: 14px;
+  }
+  .skill-card h3 { font-size: 0.95rem; margin-bottom: 10px; color: var(--text); }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    padding: 3px 9px;
+    border-radius: 6px;
+  }
+
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: "";
+    position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2), var(--accent-3), transparent);
+  }
+  .job {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 26px;
+    margin-bottom: 22px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  .job:hover { border-color: var(--card-border-hover); transform: translateX(4px); }
+  .job::before {
+    content: "";
+    position: absolute; left: -32px; top: 30px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .job.current::before { background: var(--accent); box-shadow: 0 0 14px var(--accent); }
+  .job .meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+  .job .title { font-weight: 700; font-size: 1.08rem; }
+  .job .company { color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-top: 2px; }
+  .job .period {
+    font-family: var(--mono);
+    color: var(--text-dim); font-size: 0.78rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    padding: 4px 12px; border-radius: 999px;
+    white-space: nowrap; height: fit-content;
+  }
+  .job ul { margin-top: 14px; padding-left: 18px; color: var(--text-dim); font-size: 0.92rem; }
+  .job li { margin-bottom: 7px; }
+  .badge-current {
+    display: inline-block; background: rgba(79,227,193,0.15); color: var(--accent);
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px;
+    padding: 3px 10px; border-radius: 999px; margin-left: 10px; vertical-align: middle;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 18px;
+  }
+  .project-card {
+    background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 26px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::after {
+    content: "";
+    position: absolute; top: -50%; right: -50%;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(79,227,193,0.12), transparent 70%);
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .project-card:hover { border-color: var(--card-border-hover); transform: translateY(-4px); }
+  .project-card:hover::after { opacity: 1; }
+  .project-card .num {
+    font-family: var(--mono); color: var(--accent-2); font-size: 0.78rem; margin-bottom: 10px; display: block;
+  }
+  .project-card h3 { font-size: 1.02rem; margin-bottom: 10px; }
+  .project-card p { color: var(--text-dim); font-size: 0.9rem; }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 26px;
+    display: flex; align-items: center; gap: 20px;
+    backdrop-filter: blur(10px);
+  }
+  .edu-card .icon {
+    width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+  }
+  .edu-card .degree { font-weight: 700; font-size: 1.02rem; }
+  .edu-card .school { color: var(--text-dim); font-size: 0.9rem; margin-top: 4px; }
+
+  footer {
+    padding: 50px 0 40px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-family: var(--mono);
+  }
+
+  @media (max-width: 640px) {
+    header.hero { padding: 80px 0 50px; }
+    section { padding: 56px 0; }
+    .timeline { padding-left: 26px; }
+    .job::before { left: -26px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="bg-fx">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="avatar-ring">AS</div>
+    <h1>Ajay Sunkaranam</h1>
+    <div class="role"><span id="role-text">Network Security &amp; Cloud Architect</span></div>
+    <p class="tagline">
+      15+ years designing secure, scalable, highly available infrastructure across AWS and
+      on-prem environments — firewalls, virtualization, and Kubernetes-driven DevOps automation.
+    </p>
+    <div class="contact-row">
+      <span class="pill">📍 Hyderabad</span>
+      <a class="pill" href="mailto:ajaysunkaranam89@gmail.com">✉️ ajaysunkaranam89@gmail.com</a>
+      <a class="pill" href="tel:+919392886998">📞 +91 9392886998</a>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num" data-target="15">0</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat"><div class="stat-num" data-target="4">0</div><div class="stat-label">Roles Held</div></div>
+      <div class="stat"><div class="stat-num" data-target="9">0</div><div class="stat-label">Key Projects</div></div>
+      <div class="stat"><div class="stat-num" data-target="9">0</div><div class="stat-label">Skill Domains</div></div>
+      <div class="stat"><div class="stat-num" data-target="18">0</div><div class="stat-label">Team Members Led</div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+  </div>
+</nav>
+
+<section id="about">
+  <div class="wrap reveal">
+    <span class="section-tag">// 01 — Introduction</span>
+    <h2>About Me</h2>
+    <p style="color: var(--text-dim); max-width: 780px; font-size: 1.02rem;">
+      Experienced Network Security &amp; Cloud Architect with strong hands-on expertise across
+      Palo Alto, Fortinet, VPNs, VAPT, Kubernetes, Docker, Terraform, Jenkins, and enterprise
+      infrastructure security. Currently applying that foundation to hands-on application
+      support and Kubernetes-based DevOps delivery as a Senior Application Support Engineer
+      at Piersoft Technologies Pvt Ltd, starting July 2026.
+    </p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap reveal">
+    <span class="section-tag">// 02 — Toolbox</span>
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="icon">☁️</div>
+        <h3>Cloud Platforms</h3>
+        <div class="tag-row">
+          <span class="tag">AWS</span><span class="tag">EC2</span><span class="tag">VPC</span>
+          <span class="tag">IAM</span><span class="tag">Auto Scaling</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🛡️</div>
+        <h3>Network Security</h3>
+        <div class="tag-row">
+          <span class="tag">Palo Alto</span><span class="tag">Fortinet</span>
+          <span class="tag">VPN</span><span class="tag">VAPT</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🌐</div>
+        <h3>Networking</h3>
+        <div class="tag-row">
+          <span class="tag">Routing/Switching</span><span class="tag">LAN/WAN</span>
+          <span class="tag">VLANs</span><span class="tag">TCP/IP</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">⚙️</div>
+        <h3>DevOps &amp; Automation</h3>
+        <div class="tag-row">
+          <span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">CI/CD</span>
+          <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span>
+          <span class="tag">Argo CD</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🖥️</div>
+        <h3>Virtualization</h3>
+        <div class="tag-row">
+          <span class="tag">VMware ESXi</span><span class="tag">Proxmox</span><span class="tag">KVM</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">⚖️</div>
+        <h3>Load Balancing</h3>
+        <div class="tag-row">
+          <span class="tag">F5 BIG-IP</span><span class="tag">High Availability</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🐧</div>
+        <h3>Operating Systems</h3>
+        <div class="tag-row">
+          <span class="tag">Linux</span><span class="tag">Windows Server</span><span class="tag">Active Directory</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🐘</div>
+        <h3>Databases</h3>
+        <div class="tag-row">
+          <span class="tag">PostgreSQL</span><span class="tag">MS SQL Server</span><span class="tag">MySQL</span><span class="tag">DB Administration</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="icon">🗄️</div>
+        <h3>Backup, Storage &amp; DR</h3>
+        <div class="tag-row">
+          <span class="tag">Veeam Backup &amp; Replication</span><span class="tag">Disaster Recovery</span>
+          <span class="tag">High Availability</span><span class="tag">Storage Replication</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap reveal">
+    <span class="section-tag">// 03 — Journey</span>
+    <h2>Professional Experience</h2>
+    <div class="timeline">
+
+      <div class="job current">
+        <div class="meta">
+          <div>
+            <div class="title">Senior Application Support Engineer<span class="badge-current">Current</span></div>
+            <div class="company">Piersoft Technologies Pvt Ltd</div>
+          </div>
+          <div class="period">Jul 2026 — Present</div>
+        </div>
+        <ul>
+          <li>Leading a cross-functional IT operations team of 18 members, spanning Junior &amp; Senior Desktop Administrators, Senior Network Administrators, and Junior SOC Analysts.</li>
+          <li>Mentored Junior Desktop and SOC team members, building structured escalation paths and on-call rotations between desktop support, network administration, and security monitoring.</li>
+          <li>Set technical direction and reviewed work across desktop support, network administration, and SOC monitoring functions to keep delivery consistent and audit-ready.</li>
+          <li>Providing Tier 2/3 application support across the hybrid on-prem/AWS environment, backed by Kubernetes-based DevOps delivery.</li>
+          <li>CI/CD pipeline operations using GitHub Actions, Jenkins, and Argo CD (GitOps), deploying Docker/Kubernetes workloads across both AWS cloud and on-premises infrastructure.</li>
+          <li>Operating and administering PostgreSQL database servers backing production applications, with backup and disaster recovery managed through Veeam, plus ongoing performance monitoring.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="meta">
+          <div>
+            <div class="title">Founder | Network Security &amp; Cloud Architect</div>
+            <div class="company">Samavedha IT Solutions</div>
+          </div>
+          <div class="period">2026 June — Now</div>
+        </div>
+        <ul>
+          <li>Designed and managed enterprise network security architectures using Palo Alto and Fortinet firewalls.</li>
+          <li>Implemented F5 BIG-IP load balancer configurations for high availability and traffic optimization.</li>
+          <li>Implemented secure VPN connectivity and high-availability network infrastructure for enterprise clients.</li>
+          <li>Led AWS cloud migration and cloud infrastructure modernization projects.</li>
+          <li>Managed Kubernetes and Docker-based application deployments.</li>
+          <li>Automated infrastructure provisioning using Terraform and CI/CD pipelines using Jenkins.</li>
+          <li>Performed VAPT assessments and implemented infrastructure security remediation.</li>
+          <li>Designed virtualization infrastructure using VMware and Proxmox.</li>
+          <li>Managed enterprise routing, switching, firewall policies, and network segmentation.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="meta">
+          <div>
+            <div class="title">System Administrator</div>
+            <div class="company">Eagle Claw Consulting India Pvt. Ltd.</div>
+          </div>
+          <div class="period">2012 — 2014</div>
+        </div>
+        <ul>
+          <li>Managed Linux and Windows server infrastructure.</li>
+          <li>Implemented patch management, security hardening, and monitoring solutions.</li>
+          <li>Troubleshot enterprise network and server issues.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="meta">
+          <div>
+            <div class="title">Network Support Engineer</div>
+            <div class="company">Sysnet Global Technologies</div>
+          </div>
+          <div class="period">2010 — 2012</div>
+        </div>
+        <ul>
+          <li>Configured and maintained routers, switches, firewalls, and VPN connectivity.</li>
+          <li>Supported enterprise network monitoring and troubleshooting.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap reveal">
+    <span class="section-tag">// 04 — Highlights</span>
+    <h2>Key Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="num">01</span>
+        <h3>Enterprise Firewall Security Implementation</h3>
+        <p>Designed and deployed enterprise-grade firewall security using Palo Alto and Fortinet.</p>
+      </div>
+      <div class="project-card">
+        <span class="num">02</span>
+        <h3>Secure CI/CD Pipeline</h3>
+        <p>Built a secure delivery pipeline with Jenkins, Docker, Kubernetes, and Terraform.</p>
+      </div>
+      <div class="project-card">
+        <span class="num">03</span>
+        <h3>HA VMware &amp; Proxmox Virtualization</h3>
+        <p>Architected a high-availability virtualization platform across VMware and Proxmox.</p>
+      </div>
+      <div class="project-card">
+        <span class="num">04</span>
+        <h3>GitOps Kubernetes Platform</h3>
+        <p>Built a self-hosted kind Kubernetes cluster with Jenkins CI, an in-cluster Docker registry, and Argo CD driving fully automated, git-triggered deployments.</p>
+      </div>
+      <div class="project-card">
+        <span class="num">05</span>
+        <h3>AIS140 Fleet Tracking Platform</h3>
+        <p>Deployed a GPS/fleet-tracking backend and frontend to Kubernetes, wired into the same CI/CD and GitOps pipeline as the platform's other services.</p>
+      </div>
+      <div class="project-card">
+        <span class="num">06</span>
+        <h3>Centralized Cluster Monitoring</h3>
+        <p>Stood up Prometheus and Grafana with per-application dashboards (CPU, memory, restarts, rollout health) across every workload in the cluster.</p>
+      </div>
+      <div class="project-card">
+        <span class="num">07</span>
+        <h3>Hybrid On-Prem &amp; AWS Cloud Datacenter</h3>
+        <p>Operating a hybrid environment combining a Proxmox-virtualized on-premises datacenter with AWS cloud workloads, unified under consistent security, connectivity, and monitoring.</p>
+      </div>
+      <div class="project-card">
+        <span class="num">08</span>
+        <h3>PostgreSQL Database Operations</h3>
+        <p>Administering production PostgreSQL database servers — availability, Veeam-managed backup and recovery, and performance monitoring for applications running across the hybrid environment.</p>
+      </div>
+      <div class="project-card">
+        <span class="num">09</span>
+        <h3>Enterprise Load Balancing with F5 BIG-IP</h3>
+        <p>Configured F5 BIG-IP load balancers for high availability and traffic optimization across enterprise client environments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap reveal">
+    <span class="section-tag">// 05 — Foundation</span>
+    <h2>Education</h2>
+    <div class="edu-card">
+      <div class="icon">🎓</div>
+      <div>
+        <div class="degree">Bachelor of Arts</div>
+        <div class="school">Andhra University</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Ajay Sunkaranam — Deployed on a self-hosted Kubernetes cluster
+</footer>
+
+<div id="back-to-top" title="Back to top">↑</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // scroll progress
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('progress').style.width = scrolled + '%';
+  });
+
+  // reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // animated role text cycling through actual skill areas
+  const roles = [
+    "Network Security &amp; Cloud Architect",
+    "DevOps Automation Specialist",
+    "Kubernetes &amp; Terraform Engineer",
+    "Enterprise Firewall &amp; VPN Architect"
+  ];
+  let roleIdx = 0;
+  const roleEl = document.getElementById('role-text');
+  setInterval(() => {
+    roleIdx = (roleIdx + 1) % roles.length;
+    roleEl.style.opacity = 0;
+    setTimeout(() => { roleEl.innerHTML = roles[roleIdx]; roleEl.style.opacity = 1; }, 350);
+  }, 3200);
+  roleEl.style.transition = 'opacity 0.35s ease';
+
+  // count-up stats when hero is visible
+  const statEls = document.querySelectorAll('.stat-num');
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.target, 10);
+        let cur = 0;
+        const step = Math.max(1, Math.ceil(target / 30));
+        const timer = setInterval(() => {
+          cur += step;
+          if (cur >= target) { cur = target; clearInterval(timer); }
+          el.textContent = cur + (target >= 10 ? '+' : '');
+        }, 40);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statEls.forEach(el => statObserver.observe(el));
+
+  // back to top button
+  const backBtn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    backBtn.classList.toggle('show', window.scrollY > 500);
+  });
+  backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // staggered reveal for grid/timeline children
+  document.querySelectorAll('.skill-card, .job, .project-card').forEach((el, i) => {
+    el.style.transitionDelay = (i % 6) * 0.06 + 's';
+  });
+</script>
+
+</body>
+</html>
