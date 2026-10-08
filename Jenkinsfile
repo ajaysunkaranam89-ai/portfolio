@@ -39,17 +39,20 @@ pipeline {
             // sonar.qualitygate.wait=true fails this stage if the quality gate fails.
             when { environment name: 'SKIP_CI', value: 'false' }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'Sonarcube', usernameVariable: 'SONAR_USER', passwordVariable: 'SONAR_PASS')]) {
-                    sh '''
-                        export SONAR_TOKEN="$SONAR_PASS"
-                        CID=$(docker create --network host \
-                            -e SONAR_HOST_URL=http://sonarqube.sonarqube.svc.cluster.local:9000 \
-                            -e SONAR_TOKEN \
-                            sonarsource/sonar-scanner-cli -Dsonar.qualitygate.wait=true)
-                        trap 'docker rm -f "$CID" >/dev/null 2>&1' EXIT
-                        docker cp . "$CID":/usr/src
-                        docker start -a "$CID"
-                    '''
+                // The scanner's embedded Node.js bridge occasionally stalls on this small, shared host; one retry covers it.
+                retry(2) {
+                    withCredentials([usernamePassword(credentialsId: 'Sonarcube', usernameVariable: 'SONAR_USER', passwordVariable: 'SONAR_PASS')]) {
+                        sh '''
+                            export SONAR_TOKEN="$SONAR_PASS"
+                            CID=$(docker create --network host \
+                                -e SONAR_HOST_URL=http://sonarqube.sonarqube.svc.cluster.local:9000 \
+                                -e SONAR_TOKEN \
+                                sonarsource/sonar-scanner-cli -Dsonar.qualitygate.wait=true)
+                            trap 'docker rm -f "$CID" >/dev/null 2>&1' EXIT
+                            docker cp . "$CID":/usr/src
+                            docker start -a "$CID"
+                        '''
+                    }
                 }
             }
         }
